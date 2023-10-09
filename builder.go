@@ -33,7 +33,7 @@ func (b *k8sBuilder) Build(
 	cc resolver.ClientConn,
 	opts resolver.BuildOptions,
 ) (resolver.Resolver, error) {
-	host, port, err := parseTarget(target.Endpoint, defaultPort)
+	host, port, err := parseTarget(target.Endpoint(), defaultPort)
 	if err != nil {
 		return nil, err
 	}
