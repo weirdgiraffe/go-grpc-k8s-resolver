@@ -1,4 +1,4 @@
-module github.com/tcfw/go-grpc-k8s-resolver
+module github.com/weirdgiraffe/go-grpc-k8s-resolver
 
 go 1.21.0
 
