@@ -14,9 +14,7 @@ const (
 	watcherRetryDuration = 10 * time.Second
 )
 
-var (
-	errNoEndpoints = errors.New("no endpoints available")
-)
+var errNoEndpoints = errors.New("no endpoints available")
 
 type k8sResolver struct {
 	k8sC   serviceEndpointResolver
@@ -59,7 +57,13 @@ func (k *k8sResolver) watcher() {
 	for {
 		we, stop, err = k.k8sC.Watch(k.ctx, k.host)
 		if err != nil {
-			logger.Errorf("unable to watch service endpoints (%s:%s): %s - retry in %s", k.host, k.port, err, watcherRetryDuration)
+			logger.Errorf(
+				"unable to watch service endpoints (%s:%s): %s - retry in %s",
+				k.host,
+				k.port,
+				err,
+				watcherRetryDuration,
+			)
 			time.Sleep(watcherRetryDuration)
 			continue
 		}

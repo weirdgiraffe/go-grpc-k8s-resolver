@@ -59,7 +59,12 @@ func (s *serviceClient) Resolve(ctx context.Context, host string, port string) (
 func (s *serviceClient) Watch(ctx context.Context, host string) (<-chan watch.Event, chan struct{}, error) {
 	ev := make(chan watch.Event)
 
-	watchList := cache.NewListWatchFromClient(s.k8s.CoreV1().RESTClient(), "endpoints", s.namespace, fields.OneTermEqualSelector("metadata.name", host))
+	watchList := cache.NewListWatchFromClient(
+		s.k8s.CoreV1().RESTClient(),
+		"endpoints",
+		s.namespace,
+		fields.OneTermEqualSelector("metadata.name", host),
+	)
 	_, controller := cache.NewInformer(watchList, &v1.Endpoints{}, time.Second*5, cache.ResourceEventHandlerFuncs{
 		AddFunc: func(obj interface{}) {
 			ev <- watch.Event{Type: watch.Added, Object: obj.(runtime.Object)}

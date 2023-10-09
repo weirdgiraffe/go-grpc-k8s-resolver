@@ -26,7 +26,8 @@ func TestResolve(t *testing.T) {
 							{IP: "1.1.1.1"},
 						},
 					},
-				}},
+				},
+			},
 		),
 	}
 
@@ -52,7 +53,8 @@ func TestWatch(t *testing.T) {
 							{IP: "1.1.1.1"},
 						},
 					},
-				}},
+				},
+			},
 		),
 	}
 
